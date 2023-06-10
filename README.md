@@ -3,5 +3,5 @@ Cell Factory
 
 Gra sandbox
 
-!(/wygl¹d gry.png)
-!(/zdjecie menu.png)
+![wygl¹d gry](/gra.png)
+![wygl¹d menu](/menu.png)
