@@ -6,8 +6,9 @@
 
 class GeneratorObject
     :public Object {
-    Object* produce = NULL;
 protected:
+    Object* produce = NULL;
+    int childtime = 1000;
     virtual void execthrd(GameMap* gamemap) {
         int nx = xpos + dirtoX(dir);
         int ny = ypos + dirtoY(dir);

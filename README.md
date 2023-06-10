@@ -1,11 +1,7 @@
 # so2gra
-Cell Factory
+Cell Factory                         
 
-                                                 
-              t                                  
-              .           r                       
-      t  .   .k.    .     .                       
-              .                                  
-                 t        .                      
-              t  c  ,    ,    ;     ;    t                      
-                 t                                
+Gra sandbox
+
+!(/wygl¹d gry.png)
+!(/zdjecie menu.png)

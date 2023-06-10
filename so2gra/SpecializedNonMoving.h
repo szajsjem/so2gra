@@ -28,3 +28,30 @@ public:
         return new Obracacz(xpos, ypos, dir, sleepTime);
     }
 };
+
+
+class Fabryka
+    :public Object {
+protected:
+    virtual void execthrd(GameMap* gamemap) {
+        //todo test if two . at input
+        //and output :
+    }
+public:
+    Fabryka(int xpos, int ypos, Direction d, int sleepTime = 1000)
+        :Object(xpos, ypos, sleepTime) {
+        symbol = 'o';
+        dir = d;
+    }
+    virtual Object* clone(int xpos, int ypos, int sleepTime = 1000) {
+        return new Fabryka(xpos, ypos, dir, sleepTime);
+    }
+};
+
+
+
+//portal in
+
+
+//portal out
+

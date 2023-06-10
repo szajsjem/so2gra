@@ -16,6 +16,7 @@ protected:
             gamemap->gamemap[xpos][ypos] = NULL;
             gamemap->gamemaplock[xpos][ypos]->unlock();
             todelete.pushback(this);
+            *thrdworking = false;
             return;
         }
         gamemap->gamemaplock[nx][ny]->lock();
