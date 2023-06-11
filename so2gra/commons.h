@@ -4,7 +4,7 @@
 #include <mutex>
 #ifdef _WIN32
 #include <Windows.h>
-#else//funkcja sleep
+#else  // funkcja sleep
 
 #endif
 #include <curses.h>
@@ -14,7 +14,7 @@ class Object;
 template<class t>
 class PushPopSafeList
     :public std::list<t> {
-public:
+ public:
     std::mutex lock;
     void pushback(t const&  x) {
         lock.lock();
@@ -31,13 +31,12 @@ public:
 template<class t>
 class CustumVector
     :public std::vector<t> {
-public:
+ public:
     t& operator[](const size_t indx) {
         static t help;
         if constexpr (std::is_same_v<t, Object*>) {
             help = NULL;
-        }
-        else if constexpr (std::is_same_v<t, std::mutex*>) {
+        } else if constexpr (std::is_same_v<t, std::mutex*>) {
             static std::mutex* border = new std::mutex;
             help = border;
         }
@@ -66,8 +65,7 @@ enum Direction {
     maxdir = 8
 };
 int dirtoX(Direction d) {
-    switch (d)
-    {
+    switch (d) {
     case NW:
     case W:
     case SW:
@@ -81,8 +79,7 @@ int dirtoX(Direction d) {
     }
 }
 int dirtoY(Direction d) {
-    switch (d)
-    {
+    switch (d) {
     case NE:
     case N:
     case NW:
@@ -100,8 +97,7 @@ Direction nextdir(Direction d) {
 }
 
 const char* dirTochar(Direction d) {
-    switch (d)
-    {
+    switch (d) {
     case NE:
         return "NE";
         break;
@@ -131,3 +127,4 @@ const char* dirTochar(Direction d) {
     }
     return "??";
 }
+

@@ -4,7 +4,8 @@
 #include <type_traits>
 #include <thread>
 #include <mutex>
-#include <list>s
+#include <list>
+
 #include "commons.h"
 #include "Object.h"
 #include "GeneratorObject.h"
@@ -29,8 +30,7 @@ void printmenu() {
     mvprintw(gamemap.scry, 0, "Obrot: %s ", dirTochar(lookingdir));
     mvprintw(gamemap.scry, 10, "Pozycja wskaznika: %d,%d\n", cposx, cposy);
     mvprintw(gamemap.scry + 1, 0, "| konsola | obracacz  | generator | cell:%2s|", dirTochar(selceldir));
-    switch (selcell)
-    {
+    switch (selcell) {
     case(0):
         mvprintw(gamemap.scry + 1, 1, "*");
         break;
@@ -62,9 +62,9 @@ void renderscreen() {
             gamemap.gamemaplock[i][j]->lock();
             if (gamemap.gamemap[i][j] != NULL) {
                 printw("%c", gamemap.gamemap[i][j]->Symbol());
-            }
-            else 
+            } else {
                 printw(" ");
+            }
             gamemap.gamemaplock[i][j]->unlock();
         }
     screenlock.unlock();
@@ -79,16 +79,15 @@ void rendercursor() {
     oldcx = cposx;
     screenlock.lock();
     mvprintw(oldcy , oldcx , "#");
-    if (showdir == 0) {
+    if (showdir == 0)
         mvprintw(oldcy+dirtoY(lookingdir), oldcx + dirtoX(lookingdir), "@");
-    }
     screenlock.unlock();
-    showdir++; if (showdir > 2)showdir = 0;
+    showdir++;
+    if (showdir > 2) showdir = 0;
 }
 
 void screenRefresh() {
-    while (true)
-    {
+    while (true) {
         Sleep(500);
         renderscreen();
         rendercursor();
@@ -97,9 +96,9 @@ void screenRefresh() {
     }
 }
 
-int main(const char **args, int argv){
+int main(const char **args, int argv) {
 
-    //todo get size from arguments -w %d -h %d
+    // todo get size from arguments -w %d -h %d
 
 
 
@@ -120,21 +119,20 @@ int main(const char **args, int argv){
         renderscreen();
         rendercursor();
         int litera = getch();
-        switch (litera)
-        {
-        case(258)://arr d
+        switch (litera) {
+        case(258):// arr d
             cposy++;
             break;
-        case(259)://arr u
+        case(259):// arr u
             cposy--;
             break;
-        case(260)://arr l
+        case(260):// arr l
             cposx--;
             break;
-        case(261)://arr r
+        case(261):// arr r
             cposx++;
             break;
-        case(330)://del
+        case(330):// del
             gamemap.gamemaplock[cposx][cposy]->lock();
             if (gamemap.gamemap[cposx][cposy] != NULL) {
                 delete gamemap.gamemap[cposx][cposy];
@@ -142,7 +140,7 @@ int main(const char **args, int argv){
             }
             gamemap.gamemaplock[cposx][cposy]->unlock();
             break;
-        case(99)://c
+        case(99):// c
             gamemap.gamemaplock[cposx][cposy]->lock();
             if (gamemap.gamemap[cposx][cposy] == NULL) {
                 gamemap.gamemap[cposx][cposy] = new Object(cposx, cposy, contime);
@@ -150,21 +148,21 @@ int main(const char **args, int argv){
             }
             gamemap.gamemaplock[cposx][cposy]->unlock();
             break;
-        case(103)://g
+        case(103):// g
             gamemap.gamemaplock[cposx][cposy]->lock();
             if (gamemap.gamemap[cposx][cposy] == NULL) {
-                gamemap.gamemap[cposx][cposy] = 
-                    new GeneratorObject(cposx, cposy, lookingdir, 
+                gamemap.gamemap[cposx][cposy] =
+                    new GeneratorObject(cposx, cposy, lookingdir,
                         selectedCell->clone(cposx, cposy), celltime, gtime);
                 gamemap.gamemap[cposx][cposy]->start(&gamemap);
             }
             gamemap.gamemaplock[cposx][cposy]->unlock();
             break;
-        case(114)://r
+        case(114):// r
             lookingdir = nextdir(lookingdir);
             break;
-        case(67)://C
-        case(111)://c
+        case(67):// C
+        case(111):// c
             gamemap.gamemaplock[cposx][cposy]->lock();
             if (gamemap.gamemap[cposx][cposy] == NULL) {
                 gamemap.gamemap[cposx][cposy] = new Obracacz(cposx, cposy, lookingdir, otime);
@@ -172,18 +170,17 @@ int main(const char **args, int argv){
             }
             gamemap.gamemaplock[cposx][cposy]->unlock();
             break;
-        case(9)://tab
+        case(9):// tab
             selcell++;
             if (selcell >= 4)selcell = 0;
             break;
-        case(351)://shift + tab
+        case(351):// shift + tab
             selceldir = lookingdir;
             selectedCell = new MovingObject(0, 0, selceldir, celltime);
-            //todo
+            // todo
             break;
-        case(465)://+
-            switch (selcell)
-            {
+        case(465):// +
+            switch (selcell) {
             case(0):
                 contime++;
                 break;
@@ -200,9 +197,8 @@ int main(const char **args, int argv){
                 break;
             }
             break;
-        case(464)://-
-            switch (selcell)
-            {
+        case(464):// -
+            switch (selcell) {
             case(0):
                 contime--;
                 break;
@@ -226,3 +222,4 @@ int main(const char **args, int argv){
     }
     return 0;
 }
+

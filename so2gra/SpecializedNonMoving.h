@@ -4,7 +4,7 @@
 
 class Obracacz
     : public Object {
-protected:
+ protected:
     virtual void execthrd(GameMap* gamemap) {
         for (int i = -1; i <= 1; i++) {
             for (int j = -1; j <= 1; j++) {
@@ -18,7 +18,7 @@ protected:
             }
         }
     }
-public:
+ public:
     Obracacz(int xpos, int ypos, Direction d, int sleepTime = 1000)
         :Object(xpos, ypos, sleepTime) {
         symbol = 'o';
@@ -32,12 +32,12 @@ public:
 
 class Fabryka
     :public Object {
-protected:
+ protected:
     virtual void execthrd(GameMap* gamemap) {
-        //todo test if two . at input
-        //and output :
+        // todo test if two . at input
+        // and output :
     }
-public:
+ public:
     Fabryka(int xpos, int ypos, Direction d, int sleepTime = 1000)
         :Object(xpos, ypos, sleepTime) {
         symbol = 'o';
@@ -50,8 +50,8 @@ public:
 
 
 
-//portal in
+// portal in
 
 
-//portal out
+// portal out
 

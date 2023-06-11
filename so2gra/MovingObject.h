@@ -7,7 +7,7 @@
 
 class MovingObject
     :public Object {
-protected:
+ protected:
     virtual void execthrd(GameMap* gamemap) {
         gamemap->gamemaplock[xpos][ypos]->lock();
         int nx = xpos + dirtoX(dir);
@@ -29,14 +29,12 @@ protected:
 
             xpos = nx;
             ypos = ny;
-        }
-        else {
-
+        } else {
             gamemap->gamemaplock[xpos][ypos]->unlock();
             gamemap->gamemaplock[nx][ny]->unlock();
         }
     }
-public:
+ public:
     MovingObject(int xpos, int ypos, Direction dir, int sleepTime = 1000)
         :Object(xpos, ypos, sleepTime) {
         symbol = '.';

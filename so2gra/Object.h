@@ -1,9 +1,9 @@
 #pragma once
-#include "commons.h"
 #include <thread>
+#include "commons.h"
 
 PushPopSafeList<Object*> todelete;
-//std::thread* deleter_thread = new std::thread([&]() {
+// std::thread* deleter_thread = new std::thread([&]() {
 //    while (true) {
 //        Sleep(1000);
 //        if (todelete.size() > 1) {
@@ -19,7 +19,7 @@ PushPopSafeList<Object*> todelete;
 
 
 class Object {
-protected:
+ protected:
     char symbol = 'c';
     int xpos;
     int ypos;
@@ -28,7 +28,7 @@ protected:
 
     std::thread* thrd = NULL;
     bool* thrdworking = NULL;
-    std::mutex *blockdelete=NULL;
+    std::mutex *blockdelete = NULL;
 
     GameMap* gamemap;
 
@@ -40,7 +40,7 @@ protected:
         *working = true;
         blockdel->lock();
         while (*working) {
-            if(*working)
+            if (*working)
                 execthrd(gamemap);
             blockdel->unlock();
             Sleep(sleepTime);
@@ -64,7 +64,8 @@ protected:
             }
         }
     }
-public:
+
+ public:
     Object(int xpos, int ypos, int sleepTime = 1000) {
         this->sleepTime = sleepTime;
         this->xpos = xpos;
@@ -88,7 +89,7 @@ public:
     virtual void start(GameMap* gamemap) {
         if (thrd == NULL) {
             this->gamemap = gamemap;
-            thrd = new std::thread([](Object*t) {t->timexec(); },this);
+            thrd = new std::thread([](Object*t) {t->timexec(); }, this);
         }
     }
     char Symbol() {
@@ -101,3 +102,4 @@ public:
         dir = d;
     }
 };
+

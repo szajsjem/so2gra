@@ -3,7 +3,6 @@
 
 class MovingColon                      // :
 	:public MovingObject {
-
 };
 
 
